@@ -1,0 +1,15 @@
+{
+    "short_name": "SpaceX The Game",
+    "name": "SpaceX The Game",
+    "icons": [
+        {
+            "src": "./assets/img/logo.jpg",
+            "sizes": "880x880",
+            "type": "image/jpg"
+        }
+    ],
+    "start_url": "/?utm_source=homescreen",
+    "background_color": "#88adf6",
+    "Theme_color": "#88adf6",
+    "display": "fullscreen"
+}

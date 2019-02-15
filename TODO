@@ -1,0 +1,28 @@
+Interfejs:
+
+  ✔ Naprawienie wskaźnika, @done(19-02-15 18:57)
+  ☐ Animacje,
+  ✔ Wysokość info box'a, @done(19-02-15 18:57)
+  ☐ Wypełnienie zawartością zakładkę info,
+  ☐ Ustawienia,
+
+JavaScript:
+
+  ☐ Naprawienie odliczania,
+  ☐ Mechanika klikania,
+
+Threejs:
+
+  ☐ Stopniowe przyśpieszanie rakiety,
+  ☐ Ogień wylatujący z silników,
+  ☐ Dym w okół platformy startowej,
+  ☐ Wybuch rakiety,
+
+Modele:
+
+  ✔ Rakieta, @done(19-02-10 14:22)
+  ☐ Platforma startowa,
+  ☐ Ogień silników,
+  ☐ Dym w okół platformy,
+  ☐ Chmury,
+  ☐ Otoczenie,

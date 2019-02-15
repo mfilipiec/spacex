@@ -1,0 +1,394 @@
+@font-face {
+    font-family: 'pixelpl';
+    src: url('../assets/fonts/pixel.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'fforward';
+    src: url('../assets/fonts/fff-forward.regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'fforward', 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    color: white;
+}
+canvas {
+    width: 100%;
+    height: 100%;
+}
+button {
+    cursor: pointer;
+}
+#intro {
+    position: absolute;
+    z-index: 200;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    color: black;
+    text-align: center;
+    animation: disappear 2s linear 5s;
+    @keyframes disappear {
+        0% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+    #creators {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    h1 {
+        opacity: 0;
+        animation: slideRight 2s ease-in-out 2s;
+        @keyframes slideRight {
+            0% {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            40% {
+                transform: translateX(0px);
+                opacity: 1;
+            }
+            60% {
+                transform: translateX(0px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+        }
+    }
+
+    h2 {
+        opacity: 0;
+        animation: slideLeft 2s ease-in-out 2s;
+        @keyframes slideLeft {
+            0% {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            40% {
+                transform: translateX(0px);
+                opacity: 1;
+            }
+            60% {
+                transform: translateX(0px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+        }
+    }
+}
+#ui {
+    position: absolute;
+    z-index: 100;
+    height: 100vh;
+    width: 100vw;
+}
+#logo {
+    width: 85%;
+    margin: 10px auto;
+    text-align: left;
+    animation: slideDown 0.5s linear;
+    img {
+        display: block;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}
+#fullscreen {
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 20px;
+    button {
+        background-color: Transparent;
+        border: none;
+        font-size: 25px;
+        outline: none;
+    }
+}
+#scorediv {
+    display: none;
+    margin: 10px;
+    text-align: center;
+    color: #ddd;
+    animation: slideDown 0.5s linear;
+    #score {
+        margin-bottom: -10px;
+        font-size: 30px;
+        color: white;
+    }
+}
+#infobox {
+    display: none;
+}
+#settingsbox {
+    display: none;
+}
+#gameoverbox {
+    display: none;
+    text-align: center;
+    color: #ddd;
+    h1 {
+        font-size: 40px;
+        margin-bottom: 40px;
+    }
+    h2 {
+        color: white;
+    }
+}
+.box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 60%;
+    margin: 25% 10%;
+    padding: 30px 10px;
+    background-color: rgba($color: #000, $alpha: .3);
+    border: 1px solid #333;
+    border-radius: 5px;
+    font-size: 10px;
+    overflow: scroll;
+    animation: slideUp 0.5s linear;
+    h1 {
+        margin-top: 0px;
+    }
+}
+#type {
+    position: fixed;
+    bottom: 120px;
+    left: 0;
+    width: 30%;
+    margin: auto;
+    text-align: center;
+    display: none;
+    animation: showtype 2s ease-out;
+    @keyframes showtype {
+        0% {
+            margin-left: 0;
+            opacity: 0;
+        }
+        25% {
+            opacity: 1;
+        }
+        75% {
+            opacity: 1;
+        }
+        100% {
+            margin-left: 70%;
+            opacity: 0;
+        }
+    }
+}
+#menu {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    margin: 0 auto;
+    text-align: center;
+    animation: slideUp 0.5s linear;
+    button {
+        height: 50px;
+        width: 70px;
+        margin: 0 14px;
+        background-color: rgba($color: #000, $alpha: .3);
+        border: 1px solid #333;
+        border-radius: 5px;
+        color: white;
+        font-size: 25px;
+        outline: none;
+    }
+}
+#gamebuttons {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 110px;
+    margin: auto;
+    text-align: center;
+    display: none;
+    flex-flow: row wrap;
+    color: #ddd;
+    font-size: 12px;
+    background-color: rgba($color: #000, $alpha: .3);
+    animation: slideUp 0.5s linear;
+    #buttonarea {
+        height: 80px;
+        width: 20%;
+        border: 1px solid #333;
+        button {
+            height: 50px;
+            width: 50px;
+            margin: 15px 0;
+            border-radius: 50%;
+            box-shadow: 0 6px #333;
+            transform: translateY(-3px);
+            background: linear-gradient(to top, #0e6ca9, #083b74);
+            border: none;
+            outline: none;
+            &:active {
+            box-shadow: 0 2px #333;
+            transform: translateY(0px);
+            -webkit-tap-highlight-color: transparent;
+            }
+        }
+    }
+    .gamebox {
+        height: 80px;
+        width: 40%;
+        padding-top: 5px;
+        border-top: 1px solid #333;
+    }
+    .value {
+        color: white;
+        font-size: 18px;
+        @media (max-width: 480px){
+            padding-top: 10px;
+        }
+    }
+    #eventbar {
+        height: 30px;
+        width: 100%;
+        padding: 5px 0;
+        border-top: 1px solid #333;
+        display: flex;
+        #coursor {
+            position: absolute;
+            top: 1px;
+            width: 1%;
+            height: 29px;
+            background-color: #224689;
+            animation: moving 3s linear 0.5s;
+        }
+        @keyframes moving {
+            0% {margin-left: 0%}
+            100% {margin-left: 100%}
+        }
+        #toofast {
+            width: 80%;
+            height: 19px;
+            background-color: rgba($color: #5d0b12, $alpha: .2);
+        }
+        #good {
+            width: 16%;
+            height: 19px;
+            background-color: #aaa;
+        }
+        #perfect {
+            width: 3%;
+            height: 19px;
+            background-color: green;
+        }
+        #tooslow {
+            width: 1%;
+            height: 19px;
+            background-color: #5d0b12;
+        }
+    }
+    .progressbar {
+        width: 90%;
+        height: 10px;
+        background: linear-gradient(to right, #4d5056 0%,#4d5056 50%,#4d5056 85%,#5d0b12 85%,#5d0b12 100%);
+        margin: 5px auto;
+        .pointer {
+            position: relative;
+            left: 0;
+            bottom: 0;
+            width: 55%;
+            height: 10px;
+            background-color: white;
+        }
+        #speedpointer {
+            width: 30%;
+        }
+        #altitudepointer {
+            width: 0%;
+        }
+    }
+
+}
+#rotationalert {
+    display: none;
+    background-color: black;
+    position: absolute;
+    z-index: 101;
+    height: 100vh;
+    width: 100vw;
+    #infoalert {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -70%);
+        text-align: center;
+        i {
+            margin: 10px;
+        }
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+  #rotationalert {
+    display: block;
+    i {
+        -webkit-animation: rotate 5s linear infinite;
+        -moz-animation: rotate 5s linear infinite;
+        animation: rotate 5s linear infinite;
+    }
+  }
+}
+
+@keyframes rotate {
+    50% {
+        transform: rotate(20deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(0px);
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes slideDown {
+    0% {
+        transform: translateY(-40px);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(0px);
+    }
+    100% {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#88adf6">
+    <title>SpaceX - the game</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="./assets/img/logo.jpg" type="image/jpg" sizes="880x880"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./css/fontawesome.css" />
+    <script type="text/javascript" src="./js/three.min.js"></script>
+    <script type="text/javascript" src="./js/GLTFLoader.js"></script>
+    <script type='text/javascript' src='./js/Tween.js'></script>
+</head>
+<body>
+    <div id="intro">
+        <div id="creators">
+            <h1>bajtX</h1>
+            <h2>presents</h2>
+        </div>
+    </div>
+    <div id="ui">
+        <div id="logo" class="scene1">
+            <img src="./assets//img/spacexlogo.png" alt="SpaceX Logo">
+            The Game
+        </div>
+        <div id="fullscreen">
+            <button onclick="fullscreenSwitch();"><i class="fas fa-expand"></i></button>
+        </div>
+        <div id="scorediv">
+            <div id="score">0</div>
+            score
+        </div>
+        <div id="infobox" class="box">
+            <h1>How play?</h1>
+            <p>
+                Gra sie tak ze sie wciska guzik i sie leci
+                w kosmos no i normalnie "ale kosmos" c'nie?.
+                Zbierasz punkty po to zeby pochwalic
+                sie przed kolegami z klasy ile masz tych punktow
+                i pokazac jaki to ty kozak jestes i wgl.
+            </p>
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
+                dummy text ever since the 1500s.
+            </p>
+            <h1>Creators:</h1>
+            <ul>
+                <li>Michal Filipiec - code</li>
+                <li>Kamil Piwowarczyk - models</li>
+            </ul>
+        </div>
+        <div id="settingsbox" class="box">
+            <h1>Settings:</h1>
+            <ul>
+                <li>Language</li>
+                <li>Cookies</li>
+                <li>Sound</li>
+                <li>Cos</li>
+                <li>Jeszcze</li>
+            </ul>
+        </div>
+        <div id="gameoverbox" class="box">
+            <h1>Game Over!</h1>
+            <h2>12 231</h2>
+            Score<br />
+            Best: 24 235
+            <h2>25,2 km</h2>
+            Distance<br />
+            Best: 178,5 km
+            <h2>10 271 km/h</h2>
+            High speed<br />
+            Best: 14 023 km/h
+        </div>
+        <div id="type">Good!</div>
+        <div id="menu" class="scene1">
+            <button id="play" title="Play!"><i class="fas fa-play"></i></button>
+            <button id="info" title="Info"><i class="fas fa-info"></i></button>
+            <button id="settings" title="Settings"><i class="fas fa-cog"></i></button>
+        </div>
+        <div id="gamebuttons">
+            <div id="eventbar">
+                <div id="coursor"></div>
+                <div id="toofast"></div>
+                <div id="good"></div>
+                <div id="perfect"></div>
+                <div id="tooslow"></div>
+            </div>
+            <div id="speedbox" class="gamebox">
+                Speed (km/h)<br />
+                <div id="speedvalue" class="value">234</div>
+                <div class="progressbar">
+                    <div id="speedpointer" class="pointer"></div>
+                </div>
+            </div>
+            <div id="buttonarea">
+                <button id="clicker"></button>
+            </div>
+            <div id="altitudebox" class="gamebox">
+                Altitude (km)<br />
+                <div id="altitudevalue" class="value">0</div>
+                <div class="progressbar">
+                    <div id="altitudepointer" class="pointer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="rotationalert"><div id="infoalert"><i class="fas fa-mobile fa-5x"></i><br />Rotate phone!</div></div>
+    <canvas id="canv"></canvas>
+    <script type="x-shader/x-vertex" id="vertexShader">
+            varying vec3 vWorldPosition;
+            void main() {
+                vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
+                vWorldPosition = worldPosition.xyz;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+            }
+        </script>
+    <script type="x-shader/x-fragment" id="fragmentShader">
+            uniform vec3 topColor;
+            uniform vec3 bottomColor;
+            uniform float offset;
+            uniform float exponent;
+            varying vec3 vWorldPosition;
+            void main() {
+                float h = normalize( vWorldPosition + offset ).y;
+                gl_FragColor = vec4( mix( bottomColor, topColor, max( pow( max( h , 0.0), exponent ), 0.0 ) ), 1.0 );
+            }
+        </script>
+    <script type="text/javascript" src="./js/models.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+</body>
+</html>
