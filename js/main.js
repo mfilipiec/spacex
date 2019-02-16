@@ -59,7 +59,7 @@ var licznik = 79,
 
 // Interface
 
-setTimeout( function() { setDisplay("intro", "none") }, 7000 );
+setTimeout( function() { setDisplay("intro", "none") }, 6900 );
 
 var play = false;
 document.getElementById( "play" ).addEventListener( "click", function() {
@@ -123,7 +123,7 @@ document.getElementById( "settings" ).addEventListener( "click", function () {
 
 } );
 
-var score = 0, coursor, cpos, good, perfect, tooslow, gameOverCheck = false;
+var score = 0, bestscore = 0, coursor, cpos, good, perfect, tooslow, gameOverCheck = false;
 document.getElementById( "clicker" ).addEventListener( "mousedown", function () {
 
     coursor = document.getElementById( "coursor" );
@@ -160,8 +160,8 @@ function addPoint(type) {
         console.log("Good!");
         typeDisplay("white", "Good");
     }
-    score += Math.floor((Math.random() * 20) + 1);
-    document.getElementById("score").innerHTML = score * type;
+    score += Math.floor((Math.random() * 20) + 1) * type;
+    document.getElementById("score").innerHTML = score;
     coursor = document.getElementById("coursor");
     newone = coursor.cloneNode(true);
     coursor.parentNode.replaceChild(newone, coursor);
@@ -182,6 +182,11 @@ function gameOver(type) {
     launch = false;
     clearTimeout(launchTimeout);
     gameOverCheck = true;
+    if( score > bestscore ) {
+        bestscore = score;
+    }
+    document.getElementById("showscore").innerHTML = score;
+    document.getElementById("showbestscore").innerHTML = bestscore;
     setTimeout(function () {
         setDisplay("gameoverbox", "block");
         setDisplay("menu", "block");
