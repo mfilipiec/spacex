@@ -59,7 +59,7 @@ var licznik = 79,
 
 // Interface
 
-setTimeout( function() { setDisplay("intro", "none") }, 6900 );
+setTimeout( function() { setDisplay("intro", "none") }, 6800 );
 
 var play = false;
 document.getElementById( "play" ).addEventListener( "click", function() {
