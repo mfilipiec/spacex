@@ -1,15 +1,17 @@
 Interfejs:
 
   ✔ Naprawienie wskaźnika, @done(19-02-15 18:57)
-  ☐ Animacje,
+  ✔ Animacje, @done(19-02-25 23:20)
   ✔ Wysokość info box'a, @done(19-02-15 18:57)
+  ✔ Dodanie intra, @done(19-02-15 23:24)
   ☐ Wypełnienie zawartością zakładkę info,
   ☐ Ustawienia,
 
 JavaScript:
 
+  ✔ Mechanika klikania, @done(19-02-25 23:20)
   ☐ Naprawienie odliczania,
-  ☐ Mechanika klikania,
+  ☐ Dodanie zakończenia po osiągnięciu maksymalnej wysokości
 
 Threejs:
 
@@ -17,6 +19,7 @@ Threejs:
   ☐ Ogień wylatujący z silników,
   ☐ Dym w okół platformy startowej,
   ☐ Wybuch rakiety,
+  ☐ Przesuwające sie chmury w tle,
 
 Modele:
 

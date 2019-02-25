@@ -52,16 +52,32 @@ addRocket();
 
 // Variables
 
-var licznik = 79,
-    degree = Math.PI / 2,
+var degree = Math.PI / 2,
     launch = false,
-    launchTimeout;
+    launchTimeout,
+    acceleration = 0.2,
+    speed = 0,
+    highspeed = 0,
+    maxspeed = 8500,
+    altitude = 0,
+    bestalti = 0,
+    maxalti = 70,
+    score = 0,
+    bestscore = 0,
+    coursor,
+    cpos,
+    good,
+    perfect,
+    tooslow,
+    play = false,
+    info = false,
+    settings = false,
+    gameOverCheck = false;
 
 // Interface
 
 setTimeout( function() { setDisplay("intro", "none") }, 6800 );
 
-var play = false;
 document.getElementById( "play" ).addEventListener( "click", function() {
 
     setDisplay("menu", "none");
@@ -83,7 +99,6 @@ document.getElementById( "play" ).addEventListener( "click", function() {
 
 } );
 
-var info = false;
 document.getElementById( "info" ).addEventListener( "click", function() {
 
     if( info == false ){
@@ -103,7 +118,6 @@ document.getElementById( "info" ).addEventListener( "click", function() {
 
 } );
 
-var settings = false;
 document.getElementById( "settings" ).addEventListener( "click", function () {
 
     if ( settings == false ) {
@@ -123,14 +137,13 @@ document.getElementById( "settings" ).addEventListener( "click", function () {
 
 } );
 
-var score = 0, bestscore = 0, coursor, cpos, good, perfect, tooslow, gameOverCheck = false;
 document.getElementById( "clicker" ).addEventListener( "mousedown", function () {
 
     coursor = document.getElementById( "coursor" );
     cpos = coursor.offsetLeft + coursor.offsetWidth;
-    good = document.getElementById("good").offsetLeft;
-    perfect = document.getElementById("perfect").offsetLeft;
-    tooslow = document.getElementById("tooslow").offsetLeft;
+    good = document.getElementById( "good" ).offsetLeft;
+    perfect = document.getElementById( "perfect" ).offsetLeft;
+    tooslow = document.getElementById( "tooslow" ).offsetLeft;
     if( ( cpos >= good ) & ( cpos < perfect ) ) {
 
         addPoint(1);
@@ -151,30 +164,37 @@ document.getElementById( "clicker" ).addEventListener( "mousedown", function () 
 
 } );
 
-function addPoint(type) {
+function addPoint( type ) {
 
     if( type == 2 ){
-        console.log("Perfect!");
+
         typeDisplay("green", "Perfect!");
+
     } else {
-        console.log("Good!");
+
         typeDisplay("white", "Good");
+
     }
     score += Math.floor((Math.random() * 20) + 1) * type;
-    document.getElementById("score").innerHTML = score;
-    coursor = document.getElementById("coursor");
-    newone = coursor.cloneNode(true);
-    coursor.parentNode.replaceChild(newone, coursor);
+    document.getElementById( "score" ).innerHTML = score;
+    coursor = document.getElementById( "coursor" );
+    newone = coursor.cloneNode( true );
+    coursor.parentNode.replaceChild( newone, coursor );
+    launch = true;
+    if( altitude == 0 ) {
+
+        altitudeRefresh();
+        speedRefresh();
+
+    }
 
 }
 
-function gameOver(type) {
+function gameOver( type ) {
 
     if( type == 2 ) {
-        console.log("Too slow!");
         typeDisplay("#5d0b12", "Too slow!");
     } else {
-        console.log("Too fast!");
         typeDisplay("#5d0b12", "Too fast!");
     }
     setDisplay("gamebuttons", "none");
@@ -182,32 +202,38 @@ function gameOver(type) {
     launch = false;
     clearTimeout(launchTimeout);
     gameOverCheck = true;
+    innerHtmlUpdate( "showscore", score );
     if( score > bestscore ) {
         bestscore = score;
     }
-    document.getElementById("showscore").innerHTML = score;
-    document.getElementById("showbestscore").innerHTML = bestscore;
+    innerHtmlUpdate( "showbestscore", bestscore );
+    innerHtmlUpdate( "showalti", altitude + " km" );
+    if( altitude > bestalti ) {
+        bestalti = altitude;
+    }
+    innerHtmlUpdate( "showbestalti", bestalti + " km");
+    innerHtmlUpdate( "showspeed", speed + " km/h" );
+    if( speed > highspeed ) {
+        highspeed = speed;
+    }
+    innerHtmlUpdate( "showhighspeed", highspeed + " km/h")
     setTimeout(function () {
         setDisplay("gameoverbox", "block");
         setDisplay("menu", "block");
         setDisplay("logo", "block");
         setDisplay("scorediv", "none");
         document.getElementById("score").innerHTML = "0";
+        altivalueRefresh(0);
+        speedvalueRefresh(0);
         score = 0;
+        speed = 0;
+        altitude = 0;
     }, 2000);
 
 }
 
 // Animate
 function animate() {
-
-    licznik++;
-
-    if( ( licznik > 79 ) & ( licznik < 79 * 9 - 2 ) ) {
-
-        camera_pivot.rotation.y += 0.01;
-
-    }
 
     if( play == true ){
 
@@ -218,9 +244,9 @@ function animate() {
         }
         if( gameOverCheck == false ) {
 
-            coursor = document.getElementById("coursor");
+            coursor = document.getElementById( "coursor" );
             cpos = coursor.offsetLeft + coursor.offsetWidth;
-            eventBar = document.getElementById("eventbar");
+            eventBar = document.getElementById( "eventbar" );
             endBar = eventBar.offsetWidth;
             if ( cpos >= endBar ) {
 
@@ -230,14 +256,10 @@ function animate() {
 
         }
 
-        if( launch == true ) {
+        if( launch === true ) {
 
             rocket.position.y += 0.1;
             camera.position.y += 0.1;
-
-        } else {
-
-            launchTimeout = setTimeout(function () { launch = true; altic = true }, 5000);
 
         }
 
@@ -245,18 +267,41 @@ function animate() {
 
     renderer.render( scene, camera );
 
-    requestAnimationFrame(animate);
+    requestAnimationFrame( animate );
 }
 animate();
 
-var alti = 0,
-    altic = false;
 function altitudeRefresh() {
 
-    alti = Math.round( ( alti + 0.1 ) * 10 ) / 10;
-    document.getElementById("altitudevalue").innerHTML = alti;
-    document.getElementById("altitudepointer").style.width = ( alti / 70 * 100 ) + "%";
-    setTimeout(altitudeRefresh, 500);
+    if( launch == true ) {
+
+        altitude = Math.round( ( altitude + 0.1 ) * 10 ) / 10;
+        altivalueRefresh( altitude );
+        setTimeout(altitudeRefresh, 500);
+
+    }
+
+}
+
+function altivalueRefresh( altitude ) {
+
+    document.getElementById( "altitudevalue" ).innerHTML = altitude;
+    document.getElementById( "altitudepointer" ).style.width = ( altitude / 70 * 100 ) + "%";
+
+}
+
+function speedRefresh() {
+
+    speed = Math.round( ( speed * acceleration ) * 10 ) / 10;
+    speedvalueRefresh( speed );
+    setTimeout(speedRefresh, 500);
+
+}
+
+function speedvalueRefresh( speed ) {
+
+    document.getElementById( "speedvalue" ).innerHTML = speed;
+    document.getElementById( "speedpointer" ).style.width = ( speed / 8500 * 100 ) + "%";
 
 }
 
@@ -317,16 +362,22 @@ if ( pwaCheck != "homescreen" ) {
 
 }
 
-function setDisplay(id, display) {
+function setDisplay( id, display ) {
 
-    document.getElementById(id).style.display = display;
+    document.getElementById( id ).style.display = display;
 
 }
 
-function typeDisplay(color, text) {
-    var typedoc = document.getElementById("type");
+function innerHtmlUpdate( id, value ) {
+    document.getElementById( id ).innerHTML = value;
+}
+
+function typeDisplay( color, text ) {
+
+    var typedoc = document.getElementById( "type" );
     typedoc.style.display = "block";
     typedoc.style.color = color;
     typedoc.innerHTML = text;
     setTimeout(function () { typedoc.style.display = "none" }, 2000);
+
 }

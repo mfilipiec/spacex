@@ -32,6 +32,7 @@ button {
     cursor: pointer;
 }
 #intro {
+    display: none;
     position: absolute;
     z-index: 200;
     height: 100%;
@@ -96,11 +97,22 @@ button {
         }
     }
 }
-#ui {
+#container {
     position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto;
+    @media (min-width: 480px){
+        width: 480px;
+    }
+}
+#ui {
+    margin: auto;
     z-index: 100;
     height: 100vh;
-    width: 100vw;
+    width: 100%;
 }
 #logo {
     width: 85%;
@@ -148,20 +160,16 @@ button {
     text-align: center;
     color: #ddd;
     h1 {
-        font-size: 40px;
-        margin-bottom: 40px;
+        font-size: 30px;
     }
     h2 {
         color: white;
     }
 }
 .box {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 80%;
     height: 60%;
-    margin: 25% 10%;
+    margin: 50px auto;
     padding: 30px 10px;
     background-color: rgba($color: #000, $alpha: .3);
     border: 1px solid #333;
@@ -171,6 +179,9 @@ button {
     animation: slideUp 0.5s linear;
     h1 {
         margin-top: 0px;
+    }
+    @media (min-width: 480px){
+        width: 440px;
     }
 }
 #type {
@@ -346,6 +357,19 @@ button {
             margin: 10px;
         }
     }
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: rgba($color: white, $alpha: 0);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba($color: #333, $alpha: .5);
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba($color: #222, $alpha: 0.5);
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
