@@ -19,6 +19,27 @@ function addRocket(){
 
 };
 
+// Clouds
+var cloud = new Array();
+
+function addClouds(i) {
+
+    var loader = new THREE.GLTFLoader();
+    loader.load('./assets/models/clouds/Cloud_' + i + '.glb', handle_load);
+
+    function handle_load(gltf) {
+
+        cloud[i] = gltf.scene.children[0];
+        cloud[i].castShadow = true;
+        cloud[i].scale.set( 7, 7, 7 );
+        cloud[i].rotation.y = THREE.Math.degToRad(90);
+        cloud[i].position.set( Math.floor( ( Math.random() * 600 ) + -300 ), 100, Math.floor( ( Math.random() * -60 ) - 30 ) );
+        scene.add(cloud[i]);
+
+    }
+
+}
+
 // Tripod
 var tripod;
 function addTripod() {
@@ -45,7 +66,7 @@ function addTripod() {
 // Platform
 function addPlatform() {
 
-    var geometry = new THREE.CylinderGeometry( 20, 40, 10 );
+    var geometry = new THREE.CylinderGeometry( 20, 35, 10 );
     var material = new THREE.MeshPhongMaterial( { color: 0x666666 } );
     var plafrom = new THREE.Mesh( geometry, material );
 
@@ -75,7 +96,7 @@ function addSun() {
 function addPlate() {
 
     var grasstexture = new THREE.TextureLoader().load( "./assets/textures/grass.jpg" );
-    var geometry = new THREE.BoxGeometry( 100, 1, 100 );
+    var geometry = new THREE.BoxGeometry( 100, 0, 100 );
     var material = new THREE.MeshPhongMaterial( { map: grasstexture } );
     var plate = new THREE.Mesh( geometry, material );
 

@@ -49,13 +49,13 @@ addSun();
 addPlatform();
 addPlate();
 addRocket();
+for (i = 1; i <= 8; i++) {
+    addClouds(i);
+}
 
 // Variables
 
-var degree = Math.PI / 2,
-    launch = false,
-    launchTimeout,
-    acceleration = 0.2,
+var acceleration = 0.2,
     speed = 0,
     highspeed = 0,
     maxspeed = 8500,
@@ -69,6 +69,7 @@ var degree = Math.PI / 2,
     good,
     perfect,
     tooslow,
+    launch = false,
     play = false,
     info = false,
     settings = false,
@@ -200,7 +201,6 @@ function gameOver( type ) {
     setDisplay("gamebuttons", "none");
     scene.remove(rocket);
     launch = false;
-    clearTimeout(launchTimeout);
     gameOverCheck = true;
     innerHtmlUpdate( "showscore", score );
     if( score > bestscore ) {
@@ -232,14 +232,35 @@ function gameOver( type ) {
 
 }
 
+var frame = 1;
+
 // Animate
 function animate() {
+
+    requestAnimationFrame( animate );
+
+    frame++;
+
+    if( frame > 3 ) {
+
+        for( i=1; i<=8; i++) {
+
+            cloud[i].position.x += 0.2;
+
+            if( cloud[i].position.x >= 340) {
+                cloud[i].position.x = -340;
+            }
+
+        }
+
+    }
 
     if( play == true ){
 
         if ( camera.position.z > 120 ) {
 
             camera.position.z -= 1;
+            cloud[1].position.x += 1;
 
         }
         if( gameOverCheck == false ) {
@@ -267,7 +288,6 @@ function animate() {
 
     renderer.render( scene, camera );
 
-    requestAnimationFrame( animate );
 }
 animate();
 
