@@ -93,15 +93,15 @@ function addSun() {
 };
 
 // Graund
-function addPlate() {
+function addEarth() {
 
-    var grasstexture = new THREE.TextureLoader().load( "./assets/textures/grass.jpg" );
-    var geometry = new THREE.BoxGeometry( 100, 0, 100 );
-    var material = new THREE.MeshPhongMaterial( { map: grasstexture } );
-    var plate = new THREE.Mesh( geometry, material );
+    var geometry = new THREE.SphereGeometry(300, 20, 20, 0, 3);
+    var material = new THREE.MeshPhongMaterial( { color: 0x70b430 } );
+    var earth = new THREE.Mesh( geometry, material );
 
-    plate.receiveShadow = true;
-
-    scene.add( plate );
+    earth.material.flatShading = true;
+    earth.position.set( 0, -295, -20 );
+    earth.rotation.z = THREE.Math.degToRad(-90);
+    scene.add( earth );
 
 };
