@@ -11,7 +11,7 @@ camera.position.set( 0, 43, 140 );
 
 // Render
 
-var renderer = new THREE.WebGLRenderer( { canvas: document.getElementById('canv'), antialias: true } );
+var renderer = new THREE.WebGLRenderer( { canvas: document.getElementById('canv'), alpha: true, antialias: true } );
 renderer.autoClear = false;
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth, window.innerHeight );
@@ -38,16 +38,11 @@ light.shadow.camera.far = 1000;
 light.radius = 1000;
 scene.add( light );
 
-// Background
-
-var bgcolor = new THREE.Color( 0x88adf6 );
-scene.background = bgcolor;
-
 // Models
 
 addSun();
 addPlatform();
-addPlate();
+addEarth();
 addRocket();
 for (i = 1; i <= 8; i++) {
     addClouds(i);
@@ -64,6 +59,7 @@ var acceleration = 0.2,
     maxalti = 70,
     score = 0,
     bestscore = 0,
+    skychange,
     coursor,
     cpos,
     good,
@@ -80,6 +76,15 @@ var acceleration = 0.2,
 setTimeout( function() { setDisplay("intro", "none") }, 6800 );
 
 document.getElementById( "play" ).addEventListener( "click", function() {
+
+    document.body.style.transitionProperty = "none";
+    document.body.style.background = "#88adf6";
+    skychange = setTimeout(function () {
+
+        document.body.style.background = "#020c27";
+        document.body.style.transition = "background 50s linear";
+
+    }, Math.pow(10, 5));
 
     setDisplay("menu", "none");
     setDisplay("logo", "none");
@@ -198,6 +203,7 @@ function gameOver( type ) {
     } else {
         typeDisplay("#5d0b12", "Too fast!");
     }
+    clearTimeout(skychange);
     setDisplay("gamebuttons", "none");
     scene.remove(rocket);
     launch = false;
