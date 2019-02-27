@@ -10,22 +10,24 @@ Interfejs:
 JavaScript:
 
   ✔ Mechanika klikania, @done(19-02-25 23:20)
+  ✔ Zmieniający się gradient, @done(19-02-27 22:58)
   ☐ Naprawienie odliczania,
-  ☐ Dodanie zakończenia po osiągnięciu maksymalnej wysokości
+  ☐ Dodanie zakończenia po osiągnięciu maksymalnej wysokości,
 
 Threejs:
 
+  ✔ Przesuwające sie chmury w tle, @done(19-02-26 22:29)
   ☐ Stopniowe przyśpieszanie rakiety,
   ☐ Ogień wylatujący z silników,
   ☐ Dym w okół platformy startowej,
   ☐ Wybuch rakiety,
-  ☐ Przesuwające sie chmury w tle,
 
 Modele:
 
   ✔ Rakieta, @done(19-02-10 14:22)
+  ✔ Chmury, @done(19-02-26 22:29)
   ☐ Platforma startowa,
   ☐ Ogień silników,
   ☐ Dym w okół platformy,
-  ☐ Chmury,
   ☐ Otoczenie,
+  ☐ Animacja wybuchu rakiety,
