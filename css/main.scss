@@ -23,6 +23,7 @@ body {
     padding: 0;
     overflow: hidden;
     color: white;
+    background: #88adf6;
 }
 canvas {
     width: 100%;
@@ -245,6 +246,14 @@ button {
     font-size: 12px;
     background-color: rgba($color: #000, $alpha: .3);
     animation: slideUp 0.5s linear;
+    @media (min-width: 480px){
+        width: 480px;
+        left: 50%;
+        margin-left: -240px;
+        border: 1px solid #333;
+        border-bottom: none;
+        border-radius: 10px 10px 0 0;
+    }
     #buttonarea {
         height: 80px;
         width: 20%;
@@ -285,6 +294,9 @@ button {
         padding: 5px 0;
         border-top: 1px solid #333;
         display: flex;
+        @media (min-width: 480px){
+            border: none;
+        }
         #coursor {
             position: absolute;
             top: 1px;
