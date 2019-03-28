@@ -3,9 +3,9 @@
     "name": "SpaceX The Game",
     "icons": [
         {
-            "src": "./assets/img/logo.jpg",
-            "sizes": "880x880",
-            "type": "image/jpg"
+            "src": "./assets/img/logo.png",
+            "sizes": "400x400",
+            "type": "image/png"
         }
     ],
     "start_url": "/?utm_source=homescreen",
