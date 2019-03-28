@@ -525,7 +525,7 @@ button {
 }
 
 #gamebuttons .progressbar #speedpointer {
-  width: 30%;
+  width: 0%;
 }
 
 #gamebuttons .progressbar #altitudepointer {

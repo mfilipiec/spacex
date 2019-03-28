@@ -8,11 +8,10 @@ function addRocket(){
     function handle_load( gltf ) {
 
         rocket = gltf.scene.children[0];
-        rocket.material.flatShading = true;
         rocket.castShadow = true;
         rocket.receiveShadow = true;
-        rocket.scale.set( 2, 2, 2 );
-        rocket.position.y = 36;
+        rocket.scale.set( 7.7, 7.7, 7.7 );
+        rocket.position.y = 109.5;
         scene.add( rocket );
 
     }
@@ -78,24 +77,10 @@ function addPlatform() {
 
 };
 
-// Sun
-function addSun() {
-
-    var geometry = new THREE.SphereGeometry( 6, 6, 6 );
-    var material = new THREE.MeshPhongMaterial( { color: 0xf9d71c } );
-    var sun = new THREE.Mesh( geometry, material );
-
-    sun.position.set( 100, 300, 200 );
-    sun.material.flatShading = true;
-
-    scene.add( sun );
-
-};
-
 // Graund
 function addEarth() {
 
-    var geometry = new THREE.SphereGeometry(300, 20, 20, 0, 3);
+    var geometry = new THREE.SphereGeometry(300, 50, 20);
     var material = new THREE.MeshPhongMaterial( { color: 0x70b430 } );
     var earth = new THREE.Mesh( geometry, material );
 

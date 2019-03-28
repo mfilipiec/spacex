@@ -13,10 +13,12 @@ JavaScript:
   ✔ Zmieniający się gradient, @done(19-02-27 22:58)
   ☐ Naprawienie odliczania,
   ☐ Dodanie zakończenia po osiągnięciu maksymalnej wysokości,
+  ☐ Zapisywanie wyniku w plikach cookie,
 
 Threejs:
 
   ✔ Przesuwające sie chmury w tle, @done(19-02-26 22:29)
+  ☐ Dodanie wsparcia dla WebGl 2,
   ☐ Stopniowe przyśpieszanie rakiety,
   ☐ Ogień wylatujący z silników,
   ☐ Dym w okół platformy startowej,

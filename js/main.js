@@ -27,7 +27,7 @@ hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
 hemiLight.position.set( 0, 50, 0 );
 scene.add( hemiLight );
 
-var light = new THREE.PointLight( 0xffffff, 0.8, 10000 );
+var light = new THREE.PointLight( 0xffffff, 0.8 );
 light.position.set( 100, 300, 200 );
 light.rotation.set( 0,0,0 )
 light.castShadow = true;
@@ -40,7 +40,6 @@ scene.add( light );
 
 // Models
 
-addSun();
 addPlatform();
 addEarth();
 addRocket();
@@ -50,8 +49,9 @@ for (i = 1; i <= 8; i++) {
 
 // Variables
 
-var acceleration = 0.2,
-    speed = 0,
+var startspeed = 1,
+    acceleration = 0.05,
+    speed = 1,
     highspeed = 0,
     maxspeed = 8500,
     altitude = 0,
@@ -59,6 +59,7 @@ var acceleration = 0.2,
     maxalti = 70,
     score = 0,
     bestscore = 0,
+    currentspeed,
     skychange,
     coursor,
     cpos,
@@ -97,7 +98,7 @@ document.getElementById( "play" ).addEventListener( "click", function() {
     if( gameOverCheck == true ){
 
         camera.position.set( 0, 43, 140 );
-        rocket.position.y = 36;
+        rocket.position.y = 109.5;
         scene.add( rocket );
         gameOverCheck = false;
 
@@ -234,6 +235,8 @@ function gameOver( type ) {
         score = 0;
         speed = 0;
         altitude = 0;
+        currentspeed = 0;
+        startspeed = 1;
     }, 2000);
 
 }
@@ -266,7 +269,6 @@ function animate() {
         if ( camera.position.z > 120 ) {
 
             camera.position.z -= 1;
-            cloud[1].position.x += 1;
 
         }
         if( gameOverCheck == false ) {
@@ -285,8 +287,8 @@ function animate() {
 
         if( launch === true ) {
 
-            rocket.position.y += 0.1;
-            camera.position.y += 0.1;
+            rocket.position.y += currentspeed;
+            camera.position.y += currentspeed;
 
         }
 
@@ -318,9 +320,15 @@ function altivalueRefresh( altitude ) {
 
 function speedRefresh() {
 
-    speed = Math.round( ( speed * acceleration ) * 10 ) / 10;
-    speedvalueRefresh( speed );
-    setTimeout(speedRefresh, 500);
+    if (launch == true) {
+
+        startspeed++;
+        currentspeed = Math.pow( startspeed, acceleration ) - 1;
+        speed = Math.round( ( currentspeed * 100 ) * 100 ) / 10;
+        speedvalueRefresh( speed );
+        setTimeout(speedRefresh, 500);
+
+    }
 
 }
 
